@@ -93,7 +93,7 @@ a {
 .drag-zone {
   @extend
     .align-self-center,
-    .pl-4,
+    .pl-1,
     .pr-4,
     .pt-1,
     .pb-1;
@@ -133,21 +133,4 @@ a {
   @extend .badge-light;
 
   background-color: $astuto-grey;
-}
-
-@media (prefers-color-scheme: dark) {
-  .card {
-    color: white;
-    background-color: $astuto-black;
-  }
-
-  .alert-primary {
-    background-color: #00bc8c;
-    border-color: #fff;
-  }
-
-  .alert-danger {
-    background-color: #E74C3C;
-    border-color: #fff;
-  }
 }

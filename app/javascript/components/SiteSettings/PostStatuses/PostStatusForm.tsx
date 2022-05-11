@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import Button from '../../shared/Button';
 
+import padStart from '../../../helpers/padStart';
+
 interface Props {
   mode: 'create' | 'update';
 
@@ -47,7 +49,7 @@ class PostStatusForm extends React.Component<Props, State> {
   }
 
   getRandomColor() {
-    return '#' + (Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0');
+    return '#' + padStart((Math.random() * 0xFFFFFF << 0).toString(16), 6, '0');
   }
 
   isFormValid() {
@@ -87,7 +89,7 @@ class PostStatusForm extends React.Component<Props, State> {
       <div className="postStatusForm">
         <input
           type="text"
-          placeholder="Name"
+          placeholder="Post status name"
           value={name}
           onChange={e => this.onNameChange(e.target.value)}
           className="form-control"
@@ -97,7 +99,7 @@ class PostStatusForm extends React.Component<Props, State> {
           type="color"
           value={color}
           onChange={e => this.onColorChange(e.target.value)}
-          className="form-control"
+          className="form-control postStatusColorInput"
         />
 
         <Button

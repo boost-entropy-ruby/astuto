@@ -1,7 +1,8 @@
 import { Action } from "redux";
 import { ThunkAction } from "redux-thunk";
-import buildRequestHeaders from "../helpers/buildRequestHeaders";
-import { State } from "../reducers/rootReducer";
+import HttpStatus from "../../constants/http_status";
+import buildRequestHeaders from "../../helpers/buildRequestHeaders";
+import { State } from "../../reducers/rootReducer";
 
 export const POST_STATUS_DELETE_START = 'POST_STATUS_DELETE_START';
 interface PostStatusDeleteStartAction {
@@ -49,12 +50,17 @@ export const deletePostStatus = (
     dispatch(postStatusDeleteStart());
 
     try {
-      const response = await fetch(`/post_statuses/${id}`, {
+      const res = await fetch(`/post_statuses/${id}`, {
         method: 'DELETE',
         headers: buildRequestHeaders(authenticityToken),
       });
-      const json = await response.json();
-      dispatch(postStatusDeleteSuccess(id));
+      const json = await res.json();
+
+      if (res.status === HttpStatus.Accepted) {
+        dispatch(postStatusDeleteSuccess(id));
+      } else {
+        dispatch(postStatusDeleteFailure(json.error));
+      }
     } catch (e) {
       dispatch(postStatusDeleteFailure(e));
     }
